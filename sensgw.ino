@@ -69,7 +69,8 @@ int SETfunctions[2]={(int)testSET,(int)setLED};
 // GET: 1Wire temperature
 void read1Wtemp(){
   onewire.requestTemperatures();
-  Serial.println(onewire.getTempCByIndex(0));//can be expanded for multiple sensors
+  Serial.print(onewire.getTempCByIndex(0));//can be expanded for multiple sensors
+  Serial.print("\n\n"); //terminator
 }
 
 //**************************
@@ -77,7 +78,8 @@ void read1Wtemp(){
 void readTemp(){
   MPL115A2.ReadSensor();
   MPL115A2.shutdown();
-  Serial.println(MPL115A2.GetTemperature());
+  Serial.print(MPL115A2.GetTemperature());
+  Serial.print("\n\n"); //terminator
 }
 //**************************
 // GET: MPL115A2 pressure
@@ -85,14 +87,16 @@ void readTemp(){
 void readPressure(){
   MPL115A2.ReadSensor();
   MPL115A2.shutdown();
-  Serial.println(MPL115A2.GetPressure());
+  Serial.print(MPL115A2.GetPressure());
+  Serial.print("\n\n"); //terminator
 }
 
 //**************************
 // SET: Control LED
 void setLED(int data){
   digitalWrite(5, data);
-  Serial.println("OK"); //ever SET function must return something
+  Serial.print("OK"); //ever SET function must return something
+  Serial.print("\n\n"); //terminator
 }
 
 //****************************************************************
@@ -120,6 +124,8 @@ void setup() {
     pinMode(5, OUTPUT); //LED
 }
 
+
+
 //****************************************************************
 // do not edit from here on, unless you know what your are doing
 
@@ -129,13 +135,13 @@ void testGET(){
   Serial.print(hwversion);
   Serial.print(" fw ");
   Serial.print(fwversion);
-  Serial.print("\n\r");
+  Serial.print("\n\n"); //terminator  
 }
 
 void testSET(int data){
   Serial.print("test write, decimal value: ");
   Serial.print(data);
-  Serial.print("\n\r");
+  Serial.print("\n\n"); //terminator
 }
 
 void loop()
@@ -150,7 +156,7 @@ void loop()
       // parse command number after /
       x = Serial.parseInt(); 
       //if termianted, call GET
-      if (Serial.read() == '\n'){
+      if (Serial.read() == '\r'){
         // call GET function
         ((void (*)()) GETfunctions[x])();
       }
