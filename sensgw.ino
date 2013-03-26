@@ -156,7 +156,7 @@ void loop()
       // parse command number after /
       x = Serial.parseInt(); 
       //if termianted, call GET
-      if (Serial.read() == '\r'){
+      if (Serial.read() == '\n'){
         // call GET function
         ((void (*)()) GETfunctions[x])();
       }
