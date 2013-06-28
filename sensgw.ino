@@ -118,6 +118,7 @@ void setup() {
     
     //initialize sensors PUT YOUR SENSOR INITIALIZATION CODE HERE
     onewire.begin();
+    delay(100);
     MPL115A2.begin();
     
     //setup pins
